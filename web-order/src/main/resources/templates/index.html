@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cửa hàng điện thoại</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container py-5">
+    <h1 class="text-center mb-5">📱 Cửa hàng công nghệ HNam</h1>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+
+        <div class="col" th:each="product : ${products}">
+            <div class="card h-100 shadow-sm">
+                <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="...">
+
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${product.name}">Tên SP</h5>
+
+                    <p class="card-text text-danger fw-bold"
+                       th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'">
+                        20,000,000 VNĐ
+                    </p>
+
+                    <p class="card-text text-muted" th:text="${product.description}">Mô tả ngắn</p>
+                </div>
+
+                <div class="card-footer bg-white border-top-0">
+                    <button class="btn btn-primary w-100">🛒 Đặt mua ngay</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
