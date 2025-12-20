@@ -8,27 +8,35 @@
 <body class="bg-light">
 
 <div class="container py-5">
-    <h1 class="text-center mb-5">📱 Cửa hàng công nghệ HNam</h1>
+    <h1 class="text-center mb-4">📱 Cửa hàng công nghệ HNam</h1>
+
+    <div class="text-center mb-5">
+        <a href="/orders" class="btn btn-dark shadow-sm">
+            👨‍💼 Vào trang quản lý đơn hàng (Admin)
+        </a>
+    </div>
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
 
         <div class="col" th:each="product : ${products}">
-            <div class="card h-100 shadow-sm">
+            <div class="card h-100 shadow-sm border-0">
                 <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="...">
 
                 <div class="card-body">
-                    <h5 class="card-title" th:text="${product.name}">Tên SP</h5>
+                    <h5 class="card-title fw-bold" th:text="${product.name}">Tên SP</h5>
 
-                    <p class="card-text text-danger fw-bold"
-                       th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT')} + ' VNĐ'">
-                        20,000,000 VNĐ
+                    <p class="card-text text-danger fw-bold fs-5"
+                       th:text="${product.price != null ? #numbers.formatDecimal(product.price, 0, 'POINT', 0, 'COMMA') : 0} + ' VNĐ'">
+                        20.000.000 VNĐ
                     </p>
 
-                    <p class="card-text text-muted" th:text="${product.description}">Mô tả ngắn</p>
+                    <p class="card-text text-muted" th:text="${product.description}">Mô tả</p>
                 </div>
 
-                <div class="card-footer bg-white border-top-0">
-                    <button class="btn btn-primary w-100">🛒 Đặt mua ngay</button>
+                <div class="card-footer bg-white border-top-0 pb-3">
+                    <a th:href="@{/buy/{id}(id=${product.id})}" class="btn btn-primary w-100 fw-bold">
+                        🛒 Đặt mua ngay
+                    </a>
                 </div>
             </div>
         </div>

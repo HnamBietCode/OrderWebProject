@@ -26,7 +26,7 @@ public class OrderService {
         Order newOrder = new Order();
         newOrder.setCustomerName(request.getCustomerName());
         newOrder.setAddress(request.getAddress());
-        newOrder.setPhoneNumer(request.getPhoneNumber());
+        newOrder.setPhoneNumber(request.getPhoneNumber());
         newOrder.setProduct(product);
         newOrder.setQuantity(request.getQuantity());
 

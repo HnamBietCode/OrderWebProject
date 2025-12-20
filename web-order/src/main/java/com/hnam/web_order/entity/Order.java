@@ -3,7 +3,6 @@ package com.hnam.web_order.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
-import com.hnam.web_order.entity.Product;
 
 @Entity
 @Table(name="orders")
@@ -11,19 +10,20 @@ import com.hnam.web_order.entity.Product;
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long ID;
+    @Column(name = "ID")
+    private long id;
 
     private String customerName;
 
     private String address;
 
-    private String phoneNumer;
+    private String phoneNumber;
 
     private Double totalPrice;
 
     private String status;
 
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -33,10 +33,9 @@ public class Order {
 
     @PrePersist
     public void prePersirt(){
-        this.createAt = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
         if(this.status == null){
             this.status = "Pending";
         }
     }
-
 }
