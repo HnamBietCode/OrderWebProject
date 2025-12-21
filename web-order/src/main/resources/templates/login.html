@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Đăng nhập</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+
+<div class="card shadow p-4" style="width: 400px;">
+    <h3 class="text-center mb-4">🔐 Đăng nhập</h3>
+
+    <div id="errorMessage" class="alert alert-danger d-none"></div>
+
+    <form id="loginForm">
+        <div class="mb-3">
+            <label>Tên đăng nhập:</label>
+            <input type="text" id="username" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Mật khẩu:</label>
+            <input type="password" id="password" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+    </form>
+
+    <div class="text-center mt-3">
+        <a href="/">Về trang chủ</a>
+    </div>
+</div>
+
+<script>
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+        e.preventDefault(); // Chặn form load lại trang
+
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const errorDiv = document.getElementById('errorMessage');
+
+        try {
+            // 1. Gọi API đăng nhập
+            const response = await fetch('/api/auth/signin', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username: username, password: password })
+            });
+
+            // 2. Nếu đăng nhập thành công
+            if (response.ok) {
+                const data = await response.json();
+
+                // 3. LƯU TOKEN VÀO COOKIE (Hết hạn sau 1 ngày)
+                document.cookie = `JWT_TOKEN=${data.token}; path=/; max-age=86400`;
+
+                // 4. Chuyển hướng về trang chủ (hoặc trang Admin)
+                window.location.href = "/";
+            } else {
+                // Nếu sai mật khẩu
+                errorDiv.textContent = "Sai tên đăng nhập hoặc mật khẩu!";
+                errorDiv.classList.remove('d-none');
+            }
+        } catch (error) {
+            console.error(error);
+            errorDiv.textContent = "Lỗi kết nối Server!";
+            errorDiv.classList.remove('d-none');
+        }
+    });
+</script>
+
+</body>
+</html>
