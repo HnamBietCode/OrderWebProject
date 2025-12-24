@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Cửa hàng điện thoại</title>
@@ -9,6 +10,15 @@
 
 <div class="container py-5">
     <h1 class="text-center mb-4">📱 Cửa hàng công nghệ HNam</h1>
+
+    <div sec:authorize="hasAuthority('ADMIN')" class="container mb-4 p-3 border border-warning rounded bg-white">
+        <h5 class="text-warning fw-bold">🛠 Công cụ Admin</h5>
+        <div class="d-flex gap-2">
+            <a href="/admin/product/add" class="btn btn-success">+ Thêm Sản Phẩm</a>
+            <a href="/admin/category/add" class="btn btn-warning">+ Thêm Danh Mục</a>
+            <a href="/orders" class="btn btn-dark">📦 Quản lý đơn hàng</a>
+        </div>
+    </div>
 
     <div class="text-center mb-5">
         <a href="/orders" class="btn btn-dark shadow-sm">

@@ -58,6 +58,8 @@ public class WebSecurityConfig {
                                 .requestMatchers("/css/**", "/js/**", "/images/**").permitAll() // File tĩnh: Ai cũng được vào
                                 .requestMatchers("/api/products/**").permitAll() // Xem sản phẩm: Ai cũng được vào
                                 .anyRequest().authenticated() // CÁC TRANG CÒN LẠI: PHẢI CÓ TOKEN MỚI ĐƯỢC VÀO
+                )
+                .formLogin(form -> form.loginPage("/login").permitAll()
                 );
 
         // Thêm bộ lọc Token vào chuỗi bảo mật
